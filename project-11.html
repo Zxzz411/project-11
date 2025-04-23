@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Ucapan Khusus Buat Kamu</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #e6f0ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+      animation: pop 0.5s ease;
+    }
+    @keyframes pop {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #ff66b2;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .roast {
+      font-size: 18px;
+      margin-top: 30px;
+      min-height: 60px;
+      transition: all 0.3s ease;
+    }
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #ffcc00;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sparkle 0.8s ease-out forwards;
+    }
+    @keyframes sparkle {
+      0% {transform: scale(1); opacity: 1;}
+      100% {transform: scale(2); opacity: 0;}
+    }
+  </style>
+</head>
+<body onclick="makeSparkle(event)">
+  <div class="container" id="app">
+    <div id="form">
+      <h2>Masukin nama kamu dulu, woi</h2>
+      <input type="text" id="nama" placeholder="Contoh: Doi Lemot">
+      <br><button onclick="mulai()">Mulai Roasting</button>
+    </div>
+    <div id="konten" style="display:none;">
+      <h2 id="title"></h2>
+      <div class="roast" id="roast"></div>
+      <button onclick="nextRoast()">Roasting Lagi</button>
+    </div>
+  </div>
+
+  <script>
+    const roastList = [
+  "Otak lo tuh kayak browser yang kebanyakan tab, tapi gak ada satu pun yang muter.",
+  "Lo tuh kayak update Windows, munculnya gak diharap, ngerepotin doang.",
+  "Gue liat lo tuh langsung inget error 404... otak not found.",
+  "Kalau tolol ada versi premium, lo udah langganan lifetime.",
+  "Lo ngomong kadang suka sok pinter, tapi isi-nya kosong kayak dompet pas tanggal tua.",
+  "Napas lo delay, ekspresi lo buffering, hidup lo kayak sinyal 1 bar.",
+  "Percaya diri lo tuh inspiratif sih... soalnya gue gak nyangka orang segitu gak nyambung bisa senyantai itu.",
+  "Lo cocok jadi karakter NPC, soalnya gak pernah mikir sendiri.",
+  "Lo kayak charger rusak, keliatannya nyambung, padahal nyetrum doang, kagak ngisi.",
+  "Kadang gue mikir... lo beneran mikir gak sih? Atau hidup lo auto pilot?"
+];
+
+    let nama = '';
+    function mulai() {
+      nama = document.getElementById("nama").value.trim();
+      if (nama === '') return alert("Isi nama dulu dong, woi.");
+
+      document.getElementById("form").style.display = "none";
+      document.getElementById("konten").style.display = "block";
+      document.getElementById("title").innerText = `Hey ${nama}, siap dibully?`;
+      nextRoast();
+    }
+
+    function nextRoast() {
+      const random = roastList[Math.floor(Math.random() * roastList.length)];
+      document.getElementById("roast").innerText = random;
+    }
+
+    function makeSparkle(e) {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = `${e.clientX}px`;
+      sparkle.style.top = `${e.clientY}px`;
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 800);
+    }
+  </script>
+</body>
+</html>
